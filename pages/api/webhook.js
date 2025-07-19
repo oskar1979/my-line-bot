@@ -9,7 +9,7 @@ export const config = {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).end(); // Method Not Allowed
+    return res.status(405).send('Method Not Allowed');
   }
 
   const buf = await buffer(req);
@@ -25,15 +25,6 @@ export default async function handler(req, res) {
     return res.status(401).send('Unauthorized');
   }
 
-  // 通過驗證後，你可以進一步解析 JSON 內容
-  const events = JSON.parse(body).events;
-
-  for (const event of events) {
-    console.log('收到來自 LINE 的事件:', event);
-    // 你可以根據 event.type 做進一步處理
-  }
-
-  return res.status(200).send('OK');
+  // 成功的 response
+  res.status(200).send('OK');
 }
-
-
